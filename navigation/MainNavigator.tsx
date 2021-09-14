@@ -19,6 +19,7 @@ const BottomNav = createBottomTabNavigator<RootStackParamList>();
 const SongsStack = createNativeStackNavigator();
 
 function SongsStackScreen() {
+  MaterialCommunityIcons.loadFont(); // Using for Ios
   return (
     <SongsStack.Navigator>
       <SongsStack.Screen name="Home" component={MainScreen} />
@@ -44,9 +45,9 @@ const BottomTab = () => {
           component={SongsStackScreen}
           options={{
             tabBarLabel: 'Home',
-            // tabBarIcon: ({ color }) => (
-            //   <MaterialCommunityIcons name="home" color={color} size={26} />
-            // )
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
           }}
         />
         <BottomNav.Screen
@@ -54,9 +55,9 @@ const BottomTab = () => {
           component={ModalScreen}
           options={{
             tabBarLabel: 'Modal',
-            // tabBarIcon: ({ color }) => (
-            //   <MaterialCommunityIcons name="hail" color={color} size={26} />
-            // )
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons name="hail" color={color} size={26} />
+            ),
           }}
         />
         <BottomNav.Screen
@@ -64,9 +65,13 @@ const BottomTab = () => {
           component={PlayerScreen}
           options={{
             tabBarLabel: 'Music',
-            // tabBarIcon: ({ color }) => (
-            //   <MaterialCommunityIcons name="music-circle" color={color} size={26} />
-            // )
+            tabBarIcon: ({color}) => (
+              <MaterialCommunityIcons
+                name="music-circle"
+                color={color}
+                size={26}
+              />
+            ),
           }}
         />
       </BottomNav.Navigator>
