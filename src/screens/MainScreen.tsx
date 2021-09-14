@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, SafeAreaView, FlatList} from 'react-native';
+import {Text, StyleSheet, SafeAreaView, FlatList} from 'react-native';
 import SongItem from '../components/SongItem';
 
 import music from '../../model/data';
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   musicList: {
     width: '100%',
-    padding: '5%',
   },
 });
 export default MainScreen;
