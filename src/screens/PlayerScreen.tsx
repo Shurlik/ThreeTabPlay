@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View, Image} from 'react-native';
 import TrackPlayer, {Capability} from 'react-native-track-player';
 import Button from '../components/Button';
-
+import {useTheme} from '@react-navigation/native';
 import music from '../../model/data';
 
 TrackPlayer.updateOptions({
@@ -10,8 +10,8 @@ TrackPlayer.updateOptions({
   capabilities: [Capability.Play, Capability.Pause],
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
-
 const PlayerScreen = () => {
+  const {colors} = useTheme();
   const [currentArtist, setCurrentArtist] = useState('No artist');
   const [currentSong, setCurrentSong] = useState('No tracks');
   const [artwork, setArtWork] = useState();
@@ -41,13 +41,13 @@ const PlayerScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.trackInfo}>
         <View>
-          <Text style={styles.artist}>
+          <Text style={{...styles.artist, color: colors.text}}>
             <Text style={{color: 'grey'}}>Artist:</Text>&nbsp;&nbsp;
             {currentArtist}
           </Text>
         </View>
         <View>
-          <Text style={styles.song}>
+          <Text style={{...styles.song, color: colors.text}}>
             <Text style={{color: 'grey'}}>Song:</Text>&nbsp;&nbsp;{currentSong}
           </Text>
         </View>
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#000',
   },
   trackInfo: {
     marginTop: '10%',

@@ -10,10 +10,12 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 const ModalScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [datalist, setDatalist] = useState([]);
+  const {colors} = useTheme();
 
   const happenedHandler = () => {
     const newData = [...datalist];
@@ -53,11 +55,13 @@ const ModalScreen = () => {
         </View>
       </Modal>
       <TouchableOpacity onPress={() => setShowModal(!showModal)}>
-        <Text style={styles.modalButton}>Show modal</Text>
+        <Text style={{...styles.modalButton, color: colors.title}}>
+          Show modal
+        </Text>
       </TouchableOpacity>
       <ScrollView>
         {datalist.map((elem, index) => (
-          <Text style={styles.elem} key={index}>
+          <Text style={{...styles.elem, color: colors.text}} key={index}>
             {elem}
           </Text>
         ))}
@@ -87,7 +91,6 @@ const styles = StyleSheet.create({
   modalButton: {
     fontSize: 30,
     paddingVertical: 20,
-    color: 'darkblue',
     fontWeight: 'bold',
   },
   buttonZone: {
