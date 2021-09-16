@@ -14,6 +14,7 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTeam,
 } from 'react-native-paper';
+import {useTranslation} from 'react-i18next';
 
 import MainScreen from '../src/screens/MainScreen';
 import ModalScreen from '../src/screens/ModalScreen';
@@ -41,6 +42,8 @@ function SongsStackScreen() {
 }
 
 const BottomTab = ({themeIsDark}) => {
+  const {t, i18n} = useTranslation();
+
   const customDefTheme = {
     ...navigationDefaultTheme,
     ...PaperDefaultTeam,
@@ -79,7 +82,7 @@ const BottomTab = ({themeIsDark}) => {
             name={'Main'}
             component={SongsStackScreen}
             options={{
-              tabBarLabel: 'Home',
+              tabBarLabel: t('Home.Header'),
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="home" color={color} size={26} />
               ),
@@ -89,7 +92,7 @@ const BottomTab = ({themeIsDark}) => {
             name={'Modal'}
             component={ModalScreen}
             options={{
-              tabBarLabel: 'Modal',
+              tabBarLabel: t('Modal.Header'),
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="hail" color={color} size={26} />
               ),
@@ -99,7 +102,7 @@ const BottomTab = ({themeIsDark}) => {
             name={'Player'}
             component={PlayerScreen}
             options={{
-              tabBarLabel: 'Music',
+              tabBarLabel: t('Player.Header'),
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons
                   name="music-circle"
@@ -113,7 +116,7 @@ const BottomTab = ({themeIsDark}) => {
             name={'Switcher'}
             component={SwitchScreen}
             options={{
-              tabBarLabel: 'Switch',
+              tabBarLabel: t('Switch.Header'),
               tabBarIcon: ({color}) => (
                 <MaterialCommunityIcons name="circle" color={color} size={26} />
               ),

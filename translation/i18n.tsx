@@ -11,8 +11,12 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // not needed for react as it escapes by default
   },
   resources: {
-    en,
-    ru,
+    en: {
+      translation: en,
+    },
+    ru: {
+      translation: ru,
+    },
   },
 });
 

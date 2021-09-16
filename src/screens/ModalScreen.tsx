@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     paddingVertical: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   buttonZone: {
     width: '100%',

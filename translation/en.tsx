@@ -31,5 +31,9 @@ export default {
     Header: 'Switch',
     Theme: 'Theme switch',
     Lang: 'Lang switch',
+    Light: 'Light theme',
+    Dark: 'Dark theme',
+    Eng: 'Eng',
+    Rus: 'Rus',
   },
 };

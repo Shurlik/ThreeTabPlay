@@ -5,7 +5,6 @@ import Button from '../components/Button';
 import {useTheme} from '@react-navigation/native';
 import music from '../../model/data';
 import {useTranslation} from 'react-i18next';
-import {withTranslation} from 'react-i18next';
 
 TrackPlayer.updateOptions({
   stopWithApp: false,
@@ -15,8 +14,8 @@ TrackPlayer.updateOptions({
 const PlayerScreen = () => {
   const {t, i18n} = useTranslation();
   const {colors} = useTheme();
-  const [currentArtist, setCurrentArtist] = useState(t('Player.NoArtist'));
-  const [currentSong, setCurrentSong] = useState(t('Player.NoTracks'));
+  const [currentArtist, setCurrentArtist] = useState('Player.NoArtist');
+  const [currentSong, setCurrentSong] = useState('Player.NoTracks');
   const [artwork, setArtWork] = useState();
   const setUpPlayer = async () => {
     try {
@@ -47,13 +46,13 @@ const PlayerScreen = () => {
           <Text style={{...styles.artist, color: colors.text}}>
             <Text style={{color: 'grey'}}>{t('Player.Artist')}:</Text>
             &nbsp;&nbsp;
-            {currentArtist}
+            {t(currentArtist)}
           </Text>
         </View>
         <View>
           <Text style={{...styles.song, color: colors.text}}>
             <Text style={{color: 'grey'}}>{t('Player.Song')}:</Text>&nbsp;&nbsp;
-            {currentSong}
+            {t(currentSong)}
           </Text>
         </View>
       </View>
