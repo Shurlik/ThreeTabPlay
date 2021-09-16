@@ -1,0 +1,35 @@
+export default {
+  Language: 'English',
+  Home: {
+    Header: 'Home',
+  },
+  Modal: {
+    Header: 'Modal',
+    Show: 'Show modal',
+    Cool: 'Cool!',
+    Do: 'Do something',
+    Dont: "Won't do!",
+    Happened: 'Something happened...',
+    Ok: 'Ok',
+    Did: 'Did something',
+    Again: 'And again...',
+  },
+  Player: {
+    Header: 'Player',
+    Title: 'Title',
+    Artist: 'Artist',
+    Tracks: 'Tracks',
+    Song: 'Song',
+    Play: 'Play',
+    Pause: 'Pause',
+    Next: 'Next',
+    Prev: 'Prev',
+    NoArtist: 'No artist',
+    NoTracks: 'No tracks',
+  },
+  Switch: {
+    Header: 'Switch',
+    Theme: 'Theme switch',
+    Lang: 'Lang switch',
+  },
+};

@@ -11,8 +11,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const ModalScreen = () => {
+  const {t, i18n} = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [datalist, setDatalist] = useState([]);
   const {colors} = useTheme();
@@ -20,9 +22,9 @@ const ModalScreen = () => {
   const happenedHandler = () => {
     const newData = [...datalist];
     if (newData.length === 0) {
-      newData.push('Did something...');
+      newData.push('Modal.Did');
     } else {
-      newData.push('And again...');
+      newData.push('Modal.Again');
     }
     setDatalist(newData);
   };
@@ -32,21 +34,21 @@ const ModalScreen = () => {
       <Modal visible={showModal} animationType={'fade'} transparent>
         <View style={styles.modalViewWrapper}>
           <View style={styles.modalView}>
-            <Text>Cool!</Text>
+            <Text>{t('Modal.Cool')}</Text>
             <View style={styles.buttonZone}>
               <Button
                 style={styles.buttons}
-                title={'Do something'}
+                title={t('Modal.Do')}
                 color="red"
                 onPress={() => {
-                  Alert.alert('Something happened....');
+                  Alert.alert(t('Modal.Happened'));
                   happenedHandler();
                   setShowModal(!showModal);
                 }}
               />
               <Button
                 style={styles.buttons}
-                title={"Won't do!"}
+                title={t('Modal.Dont')}
                 color="blue"
                 onPress={() => setShowModal(!showModal)}
               />
@@ -56,13 +58,13 @@ const ModalScreen = () => {
       </Modal>
       <TouchableOpacity onPress={() => setShowModal(!showModal)}>
         <Text style={{...styles.modalButton, color: colors.title}}>
-          Show modal
+          {t('Modal.Show')}
         </Text>
       </TouchableOpacity>
       <ScrollView>
         {datalist.map((elem, index) => (
           <Text style={{...styles.elem, color: colors.text}} key={index}>
-            {elem}
+            {t(elem)}
           </Text>
         ))}
       </ScrollView>

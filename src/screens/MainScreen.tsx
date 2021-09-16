@@ -7,8 +7,10 @@ import {useDispatch} from 'react-redux';
 import {setTheme} from '../store/theme/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import music from '../../model/data';
+import {useTranslation} from 'react-i18next';
 
 const MainScreen = ({navigation}) => {
+  const {t, i18n} = useTranslation();
   const {colors} = useTheme();
   const dispatch = useDispatch();
 
@@ -30,7 +32,9 @@ const MainScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{...styles.title, color: colors.text}}>Tracks</Text>
+      <Text style={{...styles.title, color: colors.text}}>
+        {t('Player.Tracks')}
+      </Text>
       <FlatList
         style={styles.musicList}
         data={music}

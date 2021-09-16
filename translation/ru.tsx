@@ -1,0 +1,35 @@
+export default {
+  Language: 'Англ',
+  Home: {
+    Header: 'Дом',
+  },
+  Modal: {
+    Header: 'Модалка',
+    Show: 'Показать',
+    Cool: 'Класс!',
+    Do: 'Что то сделать',
+    Dont: 'Ниче не делать',
+    Happened: 'Что то произосшло...',
+    Ok: 'Ну ладно',
+    Did: 'Что то сделали',
+    Again: 'И опять...',
+  },
+  Player: {
+    Header: 'Плеер',
+    Title: 'Заголовок',
+    Artist: 'Артист',
+    Tracks: 'Трек',
+    Song: 'Песня',
+    Play: 'Игать',
+    Pause: 'Пауза',
+    Next: 'След',
+    Prev: 'Пред',
+    NoArtist: 'Ни артиста...',
+    NoTracks: 'Ни песен....',
+  },
+  Switch: {
+    Header: 'Клац',
+    Theme: 'Смена темы',
+    Lang: 'Смена языка',
+  },
+};

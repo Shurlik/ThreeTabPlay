@@ -4,6 +4,8 @@ import TrackPlayer, {Capability} from 'react-native-track-player';
 import Button from '../components/Button';
 import {useTheme} from '@react-navigation/native';
 import music from '../../model/data';
+import {useTranslation} from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 
 TrackPlayer.updateOptions({
   stopWithApp: false,
@@ -11,9 +13,10 @@ TrackPlayer.updateOptions({
   compactCapabilities: [Capability.Play, Capability.Pause],
 });
 const PlayerScreen = () => {
+  const {t, i18n} = useTranslation();
   const {colors} = useTheme();
-  const [currentArtist, setCurrentArtist] = useState('No artist');
-  const [currentSong, setCurrentSong] = useState('No tracks');
+  const [currentArtist, setCurrentArtist] = useState(t('Player.NoArtist'));
+  const [currentSong, setCurrentSong] = useState(t('Player.NoTracks'));
   const [artwork, setArtWork] = useState();
   const setUpPlayer = async () => {
     try {
@@ -42,13 +45,15 @@ const PlayerScreen = () => {
       <View style={styles.trackInfo}>
         <View>
           <Text style={{...styles.artist, color: colors.text}}>
-            <Text style={{color: 'grey'}}>Artist:</Text>&nbsp;&nbsp;
+            <Text style={{color: 'grey'}}>{t('Player.Artist')}:</Text>
+            &nbsp;&nbsp;
             {currentArtist}
           </Text>
         </View>
         <View>
           <Text style={{...styles.song, color: colors.text}}>
-            <Text style={{color: 'grey'}}>Song:</Text>&nbsp;&nbsp;{currentSong}
+            <Text style={{color: 'grey'}}>{t('Player.Song')}:</Text>&nbsp;&nbsp;
+            {currentSong}
           </Text>
         </View>
       </View>
@@ -61,7 +66,7 @@ const PlayerScreen = () => {
             TrackPlayer.skipToPrevious();
             getTitle();
           }}>
-          Prev
+          {t('Player.Prev')}
         </Button>
         <View style={{height: '100%', justifyContent: 'space-between'}}>
           <Button
@@ -69,13 +74,13 @@ const PlayerScreen = () => {
               TrackPlayer.play();
               getTitle();
             }}>
-            Play
+            {t('Player.Play')}
           </Button>
           <Button
             onPress={() => {
               TrackPlayer.pause();
             }}>
-            Pause
+            {t('Player.Pause')}
           </Button>
         </View>
         <Button
@@ -83,7 +88,7 @@ const PlayerScreen = () => {
             TrackPlayer.skipToNext();
             getTitle();
           }}>
-          Next
+          {t('Player.Next')}
         </Button>
       </View>
     </SafeAreaView>

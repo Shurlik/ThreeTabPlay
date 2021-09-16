@@ -1,7 +1,10 @@
 import React, {FC} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const SongItem: FC = ({item, navigation}) => {
+  const {t, i18n} = useTranslation();
+
   return (
     <TouchableOpacity
       onPress={() =>
@@ -12,12 +15,14 @@ const SongItem: FC = ({item, navigation}) => {
       <View style={styles.song}>
         <View>
           <Text style={styles.songArtist}>
-            Artist: <Text style={{fontWeight: 'bold'}}>{item.artist}</Text>
+            {t('Player.Artist')}:{' '}
+            <Text style={{fontWeight: 'bold'}}>{item.artist}</Text>
           </Text>
         </View>
         <View>
           <Text style={styles.songTitle}>
-            Title: <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+            {t('Player.Title')}:{' '}
+            <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
           </Text>
         </View>
       </View>
