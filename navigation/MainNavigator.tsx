@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {useSelector} from 'react-redux';
+import {connect} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -40,9 +40,7 @@ function SongsStackScreen() {
   );
 }
 
-const BottomTab = () => {
-  const themeIsDark = useSelector(state => state.theme.isDark);
-
+const BottomTab = ({themeIsDark}) => {
   const customDefTheme = {
     ...navigationDefaultTheme,
     ...PaperDefaultTeam,
@@ -127,4 +125,10 @@ const BottomTab = () => {
   );
 };
 
-export default BottomTab;
+const mapStateToProps = state => {
+  return {
+    themeIsDark: state.theme.isDark,
+  };
+};
+
+export default connect(mapStateToProps)(BottomTab);

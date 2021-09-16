@@ -3,10 +3,10 @@ import {Text, StyleSheet, SafeAreaView, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import SongItem from '../components/SongItem';
 import {useEffect} from 'react';
-import music from '../../model/data';
 import {useDispatch} from 'react-redux';
 import {setTheme} from '../store/theme/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import music from '../../model/data';
 
 const MainScreen = ({navigation}) => {
   const {colors} = useTheme();

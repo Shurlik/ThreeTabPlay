@@ -1,14 +1,13 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Switch} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, connect} from 'react-redux';
 import {setTheme} from '../store/theme/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SwitchScreen = () => {
+const SwitchScreen = ({themeIsDark}) => {
   const paperTheme = useTheme();
   const dispatch = useDispatch();
-  const themeIsDark = useSelector(state => state.theme.isDark);
 
   const toggleSwitch = async () => {
     await storeData('theme', !themeIsDark);
@@ -37,6 +36,12 @@ const SwitchScreen = () => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    themeIsDark: state.theme.isDark,
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SwitchScreen;
+export default connect(mapStateToProps)(SwitchScreen);
