@@ -3,7 +3,7 @@ import {Text, StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import SongItem from '../components/SongItem';
 import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setTheme} from '../store/theme/actions';
 import {setCurrLang} from '../store/lang/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,36 +31,42 @@ const MainScreen = ({navigation}) => {
     return null;
   };
 
-  useEffect(async () => {
-    retrieveData('theme', setTheme);
+  const update = async () => {
+    setLoaded(false);
     const lang = await retrieveData('lang', setCurrLang);
     if (lang) {
       await i18next.changeLanguage(lang);
     }
     setLoaded(true);
+  };
+
+  useEffect(() => {
+    retrieveData('theme', setTheme);
+    update();
   }, []);
+
+  if (!loaded) {
+    return (
+      <View style={styles.content}>
+        <Text>Loading....</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      {!loaded && (
-        <View style={styles.content}>
-          <Text>Loading....</Text>
-        </View>
-      )}
-      {loaded && (
-        <View style={styles.content}>
-          <Text style={{...styles.title, color: colors.text}}>
-            {t('Player.Tracks')}
-          </Text>
-          <FlatList
-            style={styles.musicList}
-            data={music}
-            renderItem={({item}) => (
-              <SongItem item={item} navigation={navigation} />
-            )}
-          />
-        </View>
-      )}
+      <View style={styles.content}>
+        <Text style={{...styles.title, color: colors.text}}>
+          {t('Player.Tracks')}
+        </Text>
+        <FlatList
+          style={styles.musicList}
+          data={music}
+          renderItem={({item}) => (
+            <SongItem item={item} navigation={navigation} />
+          )}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    // flex: 1,
+    flex: 1,
     alignItems: 'center',
   },
   title: {
