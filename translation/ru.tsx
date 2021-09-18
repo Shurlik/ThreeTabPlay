@@ -36,4 +36,8 @@ export default {
     Eng: 'Анг',
     Rus: 'Рус',
   },
+  Video: {
+    Header: ' Видео',
+    Get: 'Загрузить',
+  },
 };

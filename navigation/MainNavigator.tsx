@@ -21,6 +21,8 @@ import ModalScreen from '../src/screens/ModalScreen';
 import PlayerScreen from '../src/screens/PlayerScreen';
 import SongDetailScreen from '../src/screens/SongDetailScreen';
 import SwitchScreen from '../src/screens/SwitchScreen';
+import VideoScreen from '../src/screens/VideoScreen';
+import VideoDetailScreen from '../src/screens/VideoDetailScreen';
 
 type RootStackParamList = {
   Main: undefined;
@@ -30,14 +32,32 @@ type RootStackParamList = {
 
 const BottomNav = createBottomTabNavigator<RootStackParamList>();
 const SongsStack = createNativeStackNavigator();
+const VideoStack = createNativeStackNavigator();
 
+MaterialCommunityIcons.loadFont(); // Using for Ios
 function SongsStackScreen() {
-  MaterialCommunityIcons.loadFont(); // Using for Ios
   return (
     <SongsStack.Navigator>
       <SongsStack.Screen name="Home" component={MainScreen} />
       <SongsStack.Screen name="Detail" component={SongDetailScreen} />
     </SongsStack.Navigator>
+  );
+}
+
+function VideoStackScreen() {
+  return (
+    <VideoStack.Navigator>
+      <VideoStack.Screen
+        name="Video"
+        component={VideoScreen}
+        options={{headerShown: false}}
+      />
+      <VideoStack.Screen
+        name="VideoDetail"
+        component={VideoDetailScreen}
+        options={{title: ''}}
+      />
+    </VideoStack.Navigator>
   );
 }
 
@@ -109,6 +129,16 @@ const BottomTab = ({themeIsDark}) => {
                   color={color}
                   size={26}
                 />
+              ),
+            }}
+          />
+          <BottomNav.Screen
+            name={'VideoStack'}
+            component={VideoStackScreen}
+            options={{
+              tabBarLabel: t('Video.Header'),
+              tabBarIcon: ({color}) => (
+                <MaterialCommunityIcons name="video" color={color} size={26} />
               ),
             }}
           />

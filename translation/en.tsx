@@ -36,4 +36,8 @@ export default {
     Eng: 'Eng',
     Rus: 'Rus',
   },
+  Video: {
+    Header: ' Video',
+    Get: 'Get data',
+  },
 };
