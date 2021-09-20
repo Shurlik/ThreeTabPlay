@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {Text, StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  View,
+  Dimensions,
+} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import SongItem from '../components/SongItem';
 import {useEffect, useState} from 'react';
@@ -16,6 +23,22 @@ const MainScreen = ({navigation}) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+
+  const [availableDeviceHeight, setAvailableDeviceHeight] = useState(
+    Dimensions.get('window').height,
+  );
+
+  const [availableDeviceWidth, setAvailableDeviceWidth] = useState(
+    Dimensions.get('window').width,
+  );
+  useEffect(() => {
+    const updateLayout = () => {
+      setAvailableDeviceWidth(Dimensions.get('window').width);
+      setAvailableDeviceHeight(Dimensions.get('window').height);
+    };
+    const turning = Dimensions.addEventListener('change', updateLayout);
+    return () => turning.remove();
+  }, []);
 
   const retrieveData = async (key, setter) => {
     try {

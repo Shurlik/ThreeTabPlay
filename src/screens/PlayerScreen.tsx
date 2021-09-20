@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, View, Image} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import TrackPlayer, {Capability} from 'react-native-track-player';
 import Button from '../components/Button';
 import {useTheme} from '@react-navigation/native';
@@ -31,6 +39,17 @@ const PlayerScreen = () => {
     return () => TrackPlayer.destroy();
   }, []);
 
+  const [devHeight, setDevHeight] = useState(Dimensions.get('window').height);
+  const [devWidth, setDevWidth] = useState(Dimensions.get('window').width);
+  useEffect(() => {
+    const updateLayout = () => {
+      setDevWidth(Dimensions.get('window').width);
+      setDevHeight(Dimensions.get('window').height);
+    };
+    const turning = Dimensions.addEventListener('change', updateLayout);
+    return () => turning.remove();
+  }, []);
+
   const getTitle = async () => {
     let trackIndex = await TrackPlayer.getCurrentTrack();
     let trackObject = await TrackPlayer.getTrack(trackIndex);
@@ -41,7 +60,11 @@ const PlayerScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.trackInfo}>
+      <View
+        style={[
+          styles.trackInfo,
+          devHeight > devWidth ? {} : styles.contPortrait,
+        ]}>
         <View>
           <Text style={{...styles.artist, color: colors.text}}>
             <Text style={{color: 'grey'}}>{t('Player.Artist')}:</Text>
@@ -51,44 +74,57 @@ const PlayerScreen = () => {
         </View>
         <View>
           <Text style={{...styles.song, color: colors.text}}>
-            <Text style={{color: 'grey'}}>{t('Player.Song')}:</Text>&nbsp;&nbsp;
+            <Text style={{color: 'grey'}}>{t('Player.Song')}:</Text>
+            &nbsp;&nbsp;
             {t(currentSong)}
           </Text>
         </View>
       </View>
-      <View style={styles.artwork}>
-        <Image source={artwork} style={styles.artworkImage} />
-      </View>
-      <View style={styles.buttons}>
-        <Button
-          onPress={() => {
-            TrackPlayer.skipToPrevious();
-            getTitle();
-          }}>
-          {t('Player.Prev')}
-        </Button>
-        <View style={{height: '100%', justifyContent: 'space-between'}}>
+      <View
+        style={[
+          {alignItems: 'center'},
+          devHeight > devWidth ? {} : styles.row,
+        ]}>
+        <View style={styles.artwork}>
+          <Image
+            source={artwork}
+            style={[
+              styles.artworkImage,
+              devHeight > devWidth ? {} : styles.artworkPortraitImg,
+            ]}
+          />
+        </View>
+        <View style={styles.buttons}>
           <Button
             onPress={() => {
-              TrackPlayer.play();
+              TrackPlayer.skipToPrevious();
               getTitle();
             }}>
-            {t('Player.Play')}
+            {t('Player.Prev')}
           </Button>
+          <View style={{height: '100%', justifyContent: 'space-between'}}>
+            <Button
+              onPress={() => {
+                TrackPlayer.play();
+                getTitle();
+              }}>
+              {t('Player.Play')}
+            </Button>
+            <Button
+              onPress={() => {
+                TrackPlayer.pause();
+              }}>
+              {t('Player.Pause')}
+            </Button>
+          </View>
           <Button
             onPress={() => {
-              TrackPlayer.pause();
+              TrackPlayer.skipToNext();
+              getTitle();
             }}>
-            {t('Player.Pause')}
+            {t('Player.Next')}
           </Button>
         </View>
-        <Button
-          onPress={() => {
-            TrackPlayer.skipToNext();
-            getTitle();
-          }}>
-          {t('Player.Next')}
-        </Button>
       </View>
     </SafeAreaView>
   );
@@ -99,6 +135,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  contPortrait: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   trackInfo: {
     marginTop: '10%',
@@ -124,6 +166,10 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 10,
   },
+  artworkPortraitImg: {
+    width: 200,
+    height: 200,
+  },
   buttons: {
     width: '100%',
     flexDirection: 'row',
@@ -131,6 +177,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 150,
     marginBottom: '10%',
+    flexShrink: 1,
+  },
+  row: {
+    flexDirection: 'row',
+    width: '100%',
   },
 });
 export default PlayerScreen;
